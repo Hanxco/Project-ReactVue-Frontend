@@ -13,6 +13,7 @@ import Productos from './views/Productos'
 import NuevoProducto from './views/NuevoProducto'
 import NuevaCategoria from './views/NuevaCategoria'
 import Producto from './views/Producto'
+import Buscador from './views/Buscador'
 
 import { AuthProvider } from './context/AuthProvider'
 import { ProductosProvider } from './context/ProductosProvider'
@@ -26,6 +27,10 @@ function App() {
               <Route path="/" element={<AppLayout />}>
                   <Route index element={<Productos />} />
                   <Route path=":id" element={<Producto />} />
+              </Route>
+
+              <Route path="/categoria" element={<AppLayout />}>
+                  <Route path=":id" element={<Buscador />} />
               </Route>
 
               <Route path="/admin" element={<AdminLayout />}>

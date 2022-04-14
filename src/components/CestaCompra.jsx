@@ -3,7 +3,18 @@ import useProductos from "../hooks/useProductos"
 
 const CestaCompra = () => {
 
-  const { cesta, alerta } = useProductos()
+  const { subtotal, cesta, editarProductoCesta, borrarProductoCesta, restarProductoSubtotal } = useProductos()
+
+  const handleRemove = async e => {
+    const article = e;
+    article.cantidad = e.cantidad - 1;
+    if (article.cantidad == 0) {
+      borrarProductoCesta(article)
+    } else {
+      editarProductoCesta(article);
+    }
+    restarProductoSubtotal(article)
+  }
 
   return (
     <Fragment>
@@ -16,12 +27,12 @@ const CestaCompra = () => {
           </div>
 
           <div className="mt-8">
-            <div className="flow-root overflow-y-scroll" style={{height : "32rem"}}>
+            <div className="flow-root overflow-y-scroll p-5" style={{height : "32rem"}}>
               <ul role="list" className="-my-6 divide-y divide-gray-200">
                 {
                   cesta.length ? 
                     cesta.map(articulo => (
-                      <li key={'article-' + articulo._id} className="flex py-6">
+                      <li key={'article-' + articulo._id + articulo.talla} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img className="w-20 md:w-20 lg:w-20" src={articulo.imagen} />
                         </div>
@@ -31,14 +42,15 @@ const CestaCompra = () => {
                               <h3>
                                 <a href="#">{articulo.nombre}</a>
                               </h3>
-                              <p className="ml-4">{articulo.precio}</p>
+                              <p className="ml-4">{articulo.precio}€</p>
                             </div>
-                            <p className="mt-1 text-sm text-gray-500">Salmon</p>
                           </div>
+                          <p className="mt-1 text-sm text-gray-500"><b>Talla: </b>{articulo.talla}</p>
                           <div className="flex flex-1 items-end justify-between text-sm">
-                            <p className="text-gray-500">Qty 1</p>
+                            <p className="text-gray-500">Cantidad: {articulo.cantidad}</p>
                             <div className="flex">
-                              <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                              <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    onClick={() => handleRemove(articulo)}>Remove</button>
                             </div>
                           </div>
                         </div>
@@ -52,7 +64,7 @@ const CestaCompra = () => {
           <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p>$262.00</p>
+              <p>{subtotal} €</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">Gastos de envío son calculados previo al pago.</p>
             <div className="mt-6">
@@ -68,3 +80,6 @@ const CestaCompra = () => {
 }
 
 export default CestaCompra
+
+/*
+*/

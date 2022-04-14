@@ -14,7 +14,6 @@ const Producto = () => {
   const { obtenerProducto, 
           producto, 
           cargando, 
-          handleModalTarea, 
           alerta, 
           submitTareasProducto, 
           eliminarTareaProducto, 
@@ -72,23 +71,6 @@ const Producto = () => {
 
   return  (
       <Fragment>
-        <div className='flex justify-between'>
-          <h1 className='font-black text-4xl'>{nombre}</h1>
-          {
-            admin && (
-              <div className='flex items-center gap-2 text-gray-400 hover:text-black'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-                <Link 
-                  to={`/productos/editar/${params.id}`}
-                  className='uppercase font-bold'
-                >Editar</Link>
-              </div>
-            )
-          }
-        </div>
-
         <div className="bg-white mt-5">
           <div className="pt-6">
             <nav aria-label="Breadcrumb">
@@ -207,8 +189,28 @@ const Producto = () => {
 
                   <div className="mt-10">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm text-gray-900 font-medium">Unidades en stock: {stock}</h3>
+                      <h3 className="text-sm text-gray-900 font-medium">Unidades disponibles en stock: {stock}</h3>
                       <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">Guía de tallas</a>
+                    </div>
+                  </div>
+
+                  <div className="mt-10">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm text-gray-900 font-medium">Cantidad: </h3>
+                      <div class="flex justify-center">
+                        <div class="mx-5 mb-3 xl:w-96">
+                          <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
+                            border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                            focus:outline-none" aria-label="Default select example">
+                              <option selected>Selecciona cantidad</option>
+                              {() => {
+                                for (let i = 0; i < stock; i++) {
+                                  (<option value="1">1</option>)
+                                }
+                              }}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -218,9 +220,8 @@ const Producto = () => {
               </div>
 
               <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                <h3 className="sr-only">Descripción</h3>
-
-                <div className="space-y-6">
+                <h1 className='text-xl'>Descripción</h1>
+                <div className="space-y-6 mt-3">
                   <p className="text-base text-gray-900">{descripcion}</p>
                 </div>
 
@@ -237,18 +238,11 @@ const Producto = () => {
                   <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
                   </div>
                 </div>
-                        
-                <button
-                    onClick={ handleModalTarea }
-                    type='button'
-                    className='text-sm px-5 py-3 w-full md:w-auto rounded-lg uppercase font-bold bg-sky-400 text-white text-center mt-5 flex gap-2 items-center justify-center'
-                >HERE</button>
               </div>
             </div>
           </div>
         </div>
         
-        <ModalAgregarProducto />
         <ModalEliminarTarea />
       </Fragment>
     )

@@ -1,51 +1,62 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import useProductos from '../hooks/useProductos'
 import ModalAgregarProducto from './ModalAgregarProducto'
+import useProductos from "../hooks/useProductos"
 
-const PreviewProducto = ({producto}) => {
+const PreviewProducto = ({producto, categories}) => {
 
-    const { auth } = useAuth()
-    const { handleModalTarea } = useProductos()
-
+    const [isOpen, setIsOpen] = useState(false);
     const {_id,  nombre, categoria, precio, imagen, stock} = producto
+    
+    const [categoryName, setCategoryName] = useState(null)
+    const [loading, setLoading] = useState(true)
+    
+    useEffect( () => {
+        var name = categories.get(Number(categoria))
+        setCategoryName(name.nombre);
+        setLoading(false)
+    })
 
     return (
         <Fragment>
-            <div className="flex items-stretch">
-                <div className='grid grid-rows-1'>
-                    <div>
-                        <div className='bg-white shadow mt-10 rounded-lg text-center'>
-                            <p className="text-xl uppercase hover:uppercase py-3">{nombre}</p>
-                            <span className='text-sm text-gray-500 uppercase'>
-                                {''} {categoria}
-                            </span>
-                            <img className="w-22 md:w-32 lg:w-48 m-5" src={imagen} />
-                            <p><b>Unidades en stock:</b> {stock}</p>
-                            <h4><b>Precio: </b>{precio} €</h4>
+            {
+                loading ? (
+                    <h1>Loading ...</h1>
+                ) : (
+                    <div className="flex items-stretch">
+                        <div className='grid grid-rows-1'>
+                            <Link to={`${_id}`}>
+                                <div className='bg-white hover:bg-slate-200 shadow mt-10 rounded-lg text-center'>
+                                    <p className="text-xl uppercase hover:uppercase py-3">{nombre}</p>
+                                    <span className='text-sm text-gray-500 uppercase'>
+                                        {''} {categoryName}
+                                    </span>
+                                    <img className="w-22 md:w-32 lg:w-48 m-5" src={imagen} />
+                                    <p><b>Unidades en stock:</b> {stock}</p>
+                                    <h4><b>Precio: </b>{precio} €</h4>
+                                </div>
+                            </Link>
+                            {
+                                stock == 0 ? (
+                                    <button className='bg-red-500 p-3 hover:bg-red-700 transition-colors text-white uppercase font-bold block mt-5 text-center rounded-lg'
+                                        type='button'>Agotado</button>
+                                ) : (
+                                    <button className='bg-orange-500 p-3 hover:bg-orange-700 transition-colors text-white uppercase font-bold block mt-5 text-center rounded-lg'
+                                        onClick={() => setIsOpen(true)}
+                                        type='button'>Comprar ya</button>
+                                )
+                            }
+                            <ModalAgregarProducto isOpen={isOpen} setIsOpen={setIsOpen} producto={producto} />
                         </div>
                     </div>
-                    <div>
-                        <div className="flex items-stretch">
-                            <div>
-                                <Link to={`${_id}`} className='bg-gray-500 p-3 mr-3 hover:bg-gray-700 transition-colors text-white uppercase font-bold block mt-5 text-center rounded-lg'>
-                                    Ver producto</Link>
-                            </div>
-                            <div>
-                                <button
-                                    onClick={ handleModalTarea }
-                                    type='button'
-                                    className='bg-orange-500 p-3 hover:bg-orange-700 transition-colors text-white uppercase font-bold block mt-5 text-center rounded-lg'
-                                >Comprar ya</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ModalAgregarProducto />
+                )
+            }
         </Fragment>
     )
 }
 
+/*
+    <Link to={`${_id}`} className='bg-gray-500 p-3 mr-3 hover:bg-gray-700 transition-colors text-white uppercase font-bold block mt-5 text-center rounded-lg'>
+                                        Ver producto</Link>
+                                        */
 export default PreviewProducto

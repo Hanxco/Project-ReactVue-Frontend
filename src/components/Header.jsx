@@ -43,12 +43,12 @@ const Header = () => {
                     { menuCategorias ? 
                     (
                         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" 
-                            role="menu" id="menuCategorias" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                            role="menu" id="menuCategorias" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
                             <div className="py-1" role="none">
                                 {
                                     categorias.map(categoria => (
-                                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
-                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to="crear-producto">{categoria.nombre}</Link>
+                                        <a key={`link-category-${categoria._id}`} href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
+                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to={`/categoria/${categoria._id}`} >{categoria.nombre}</Link>
                                         </a>
                                     ))
                                 }
@@ -73,12 +73,12 @@ const Header = () => {
                                     role="menu" id="menuAdmin"
                                     aria-orientation="vertical" 
                                     aria-labelledby="menu-button" 
-                                    tabindex="-1">
+                                    tabIndex="-1">
                                     <div className="py-1" role="none">
-                                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+                                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
                                             <Link className='font-bold uppercase hover:underline decoration-orange-500' to="admin/crear-producto">Gestionar productos</Link>
                                         </a>
-                                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">
+                                        <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">
                                             <Link className='font-bold uppercase hover:underline decoration-orange-500' to="admin/crear-categoria">Gestionar categorías</Link>
                                         </a>
                                     </div>
