@@ -76,10 +76,10 @@ const Header = () => {
                                     tabIndex="-1">
                                     <div className="py-1" role="none">
                                         <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
-                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to="admin/crear-producto">Gestionar productos</Link>
+                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to="/admin/crear-producto">Gestionar productos</Link>
                                         </a>
                                         <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">
-                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to="admin/crear-categoria">Gestionar categorías</Link>
+                                            <Link className='font-bold uppercase hover:underline decoration-orange-500' to="/admin/crear-categoria">Gestionar categorías</Link>
                                         </a>
                                     </div>
                                 </div>
