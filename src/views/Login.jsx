@@ -34,15 +34,19 @@ const Login = () => {
             }
         
         if (userObj == null) {
-                navigate('/login')
-            } else {
-                localStorage.setItem('token', userObj.token)
-                setAuth(userObj)
-                navigate('/')
-            }
+            setAlerta({
+                msg: 'Usuario o contraseña incorrecta',
+                error: true
+            })
+            navigate('/login')
+        } else {
+            localStorage.setItem('token', userObj.token)
+            setAuth(userObj)
+            navigate('/')
+        }
         } catch (error) {
             setAlerta({
-                msg: error.response.data.msg,
+                msg: 'Usuario o contraseña incorrecta',
                 error: true
             })
         }

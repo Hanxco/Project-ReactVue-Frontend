@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
     
     const [users, setUsers] = useState([
         { _id:0, email: "admin@gmail.com", password: "1234", token: "sdao2si1iosl", profile: "admin" },
-        { _id:1, email: "carlos@gmail.com", password: "1234", token: "38sdakm2sda", profile: "user" }
+        { _id:1, email: "carlos@gmail.com", password: "0000", token: "38sdakm2sda", profile: "user" }
     ])
 
     useEffect(() => {
@@ -44,6 +44,15 @@ const AuthProvider = ({children}) => {
         localStorage.setItem('token', null)
     }
 
+    const resetPassword = email => {
+        for (var i = 0; i<users.length; i++) {
+            if (users[i].email == email) {
+                users[i].password = '1234'
+            }
+        }
+    }
+
+
     return (
         <AuthContext.Provider
             value={{
@@ -52,7 +61,8 @@ const AuthProvider = ({children}) => {
                 cargando,
                 users,
                 setUsers,
-                cerrarSesionAuth
+                cerrarSesionAuth,
+                resetPassword
             }}
         >
             {children}

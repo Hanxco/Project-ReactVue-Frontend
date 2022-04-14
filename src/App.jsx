@@ -16,13 +16,13 @@ import Producto from './views/Producto'
 import Buscador from './views/Buscador'
 
 import { AuthProvider } from './context/AuthProvider'
-import { ProductosProvider } from './context/ProductosProvider'
+import { ShopProvider } from './context/ShopProvider'
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ProductosProvider>
+        <ShopProvider>
           <Routes>
               <Route path="/" element={<AppLayout />}>
                   <Route index element={<Productos />} />
@@ -46,7 +46,7 @@ function App() {
                   <Route path="resetpass" element={ <RecordarPassword/> } />
               </Route>
           </Routes>
-        </ProductosProvider>
+        </ShopProvider>
       </AuthProvider>
     </BrowserRouter>
   )

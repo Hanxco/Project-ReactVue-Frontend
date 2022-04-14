@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useProductos from '../hooks/useProductos';
 import useAdmin from '../hooks/useAdmin';
-import ModalEliminarTarea from '../components/ModalEliminarTarea'
 
 const Producto = () => {
   const params = useParams();
@@ -220,7 +219,6 @@ const Producto = () => {
           </div>
         </div>
         
-        <ModalEliminarTarea />
       </Fragment>
     )
 

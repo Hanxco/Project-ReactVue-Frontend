@@ -11,7 +11,6 @@ const Registrarse = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-
         if([nombre, email, password, repetirPassword].includes('')) {
            setAlerta({
                msg: 'Todos los campos son obligatorios',
@@ -19,15 +18,6 @@ const Registrarse = () => {
            })
            return
         }
-
-        if(password !== repetirPassword ) {
-            setAlerta({
-                msg: 'Los password no son iguales',
-                error: true
-            })
-            return
-        }
-
         if(password.length < 6 ) {
             setAlerta({
                 msg: 'El Password es muy corto, agrega minimo 6 caracteres',
@@ -35,17 +25,24 @@ const Registrarse = () => {
             })
             return
         }
-
+        if(password !== repetirPassword ) {
+            setAlerta({
+                msg: 'Los password no son iguales',
+                error: true
+            })
+            return
+        }
         setAlerta({})
 
         try {
+            
             setNombre('')
             setEmail('')
             setPassword('')
             setRepetirPassword('')
         } catch (error) {
             setAlerta({
-                msg: error.response.data.msg,
+                msg: 'Error no reconocido',
                 error: true
             })
         }

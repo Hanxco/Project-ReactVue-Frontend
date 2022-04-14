@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth'
 
 const ProductosContext = createContext();
 
-const ProductosProvider = ({children}) => {
+const ShopProvider = ({children}) => {
     
     const [productos, setProductos] = useState([
         { _id:1, nombre: "Normal vs Paranormal", categoria: "1", descripcion: "Camiseta de mangas cortas con ilustración Normal vs Paranormal en campana de Gauss",precio: 50, imagen: '/images/1.jpg', stock: 10},
@@ -34,8 +34,6 @@ const ProductosProvider = ({children}) => {
     const [ producto, setProducto ] = useState({});
     const [ cargando, setCargando ] = useState(false);
     const [ modalFormularioTarea, setModalFormularioTarea  ] = useState(false)
-    const [ tarea, setTarea ] = useState({})
-    const [ modalEliminarTarea, setModalEliminarTarea  ] = useState(false)
     const [ buscador, setBuscador ] = useState(false)
 
     // Cesta de la compra
@@ -193,12 +191,6 @@ const ProductosProvider = ({children}) => {
         setTarea(tarea)
     }
 
-    const handleModalEliminarTarea = tarea => {
-        setTarea(tarea)
-        setModalEliminarTarea(!modalEliminarTarea)
-    }
-
-
     /*
     *   Categorias
     */
@@ -348,7 +340,7 @@ const ProductosProvider = ({children}) => {
                         modificarStock(articulo, false)
                     }
                 }
-            } else if (cestaAct.length == 1) {
+            } else if (cestaAct.length == 1 && cesta.length == 1) {
                 cestaAct.splice(0, 1)
             } 
             setCesta(cestaAct)
@@ -391,10 +383,6 @@ const ProductosProvider = ({children}) => {
                 cargando,
                 eliminarProducto,
                 modalFormularioTarea, 
-                handleModalTarea,
-                handleModalEditarTarea, 
-                modalEliminarTarea,
-                handleModalEliminarTarea,
                 buscador, 
                 handleBuscador,
                 setModalFormularioTarea,
@@ -421,7 +409,7 @@ const ProductosProvider = ({children}) => {
     )
 }
 export { 
-    ProductosProvider
+    ShopProvider
 }
 
 export default ProductosContext

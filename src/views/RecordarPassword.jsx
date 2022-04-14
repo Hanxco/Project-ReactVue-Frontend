@@ -1,11 +1,14 @@
 import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Alerta from '../components/Alerta'
+import useAuth from '../hooks/useAuth'
 
 const RecordarPassword = () => {
 
     const [email, setEmail] = useState('')
     const [alerta, setAlerta] = useState({})
+
+    const { resetPassword } = useAuth()
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -19,16 +22,14 @@ const RecordarPassword = () => {
         }
 
         try {
-            /*const { data } = await clienteAxios.post(`/usuarios/olvide-password`, { email })
-
+            resetPassword(email)
             setAlerta({
-                msg: data.msg,
+                msg: 'Se ha reseteado el usuario',
                 error: false
-            })*/
-            
+            })
         } catch (error) {
             setAlerta({
-                msg: error.response.data.msg,
+                msg: 'Error no reconocido',
                 error: true
             })
         }
