@@ -1,65 +1,38 @@
-import { Fragment, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Fragment, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import useProductos from '../hooks/useProductos';
 import useAdmin from '../hooks/useAdmin';
-import ModalAgregarProducto from '../components/ModalAgregarProducto'
 import ModalEliminarTarea from '../components/ModalEliminarTarea'
-import Alerta from '../components/Alerta';
-import io from 'socket.io-client'
-
-let socket;
 
 const Producto = () => {
   const params = useParams();
   const { obtenerProducto, 
           producto, 
-          cargando, 
+          cargando,
           alerta, 
-          submitTareasProducto, 
-          eliminarTareaProducto, 
-          actualizarTareaProducto,
-          tallas,
-          cambiarEstadoTarea } = useProductos()
+          tallas } = useProductos()
  
   const admin = useAdmin()
+  const [hoverImage, setHoverImage] = useState(false)
+  const [unitsAvailable, setUnitsAvailable] = useState([])
 
   useEffect( () => {
     obtenerProducto(params.id)
+      .then(function(res) {
+        console.log(res)
+        var arr = []
+        for (let i=1; i <= res.stock; i++) {
+          arr.push(i);
+        }
+        setUnitsAvailable(arr)
+        console.log('unitsAvailable')
+        console.log(unitsAvailable)
+      })
   }, [])
-
-  useEffect(() => {
-    socket = io(import.meta.env.VITE_BACKEND_URL)
-    socket.emit('abrir producto', params.id)
-  }, [])
-
-  useEffect(() => {
-    socket.on("tarea agregada", tareaNueva => {
-      if(tareaNueva.producto === producto._id) {
-          submitTareasProducto(tareaNueva)
-      }
-    })
-
-    socket.on('tarea eliminada', tareaEliminada => {
-      if(tareaEliminada.producto === producto._id) {
-        eliminarTareaProducto(tareaEliminada)
-      }
-    })
-
-    socket.on('tarea actualizada', tareaActualizada => {
-      if(tareaActualizada.producto._id === producto._id) {
-        actualizarTareaProducto(tareaActualizada)
-      }
-    })
-
-    socket.on('nuevo estado', nuevoEstadoTarea => {
-      if(nuevoEstadoTarea.producto._id === producto._id) {
-        cambiarEstadoTarea(nuevoEstadoTarea)
-      }
-    })
-  })
 
   const { nombre, descripcion, categoria, precio, imagen, stock} = producto
   const { msg } = alerta
+
   
   if (cargando) return (
     <div className="flex justify-center items-center">
@@ -142,7 +115,7 @@ const Producto = () => {
                     <h3 className="text-sm text-gray-900 font-medium">Color</h3>
 
                     <fieldset className="mt-4">
-                      <legend className="sr-only">Choose a color</legend>
+                      <legend className="sr-only">Elige un color</legend>
                       <div className="flex items-center space-x-3">
                         <label className="-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none ring-gray-400">
                           <input type="radio" name="color-choice" value="White" className="sr-only" aria-labelledby="color-choice-0-label" />
@@ -197,17 +170,17 @@ const Producto = () => {
                   <div className="mt-10">
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm text-gray-900 font-medium">Cantidad: </h3>
-                      <div class="flex justify-center">
-                        <div class="mx-5 mb-3 xl:w-96">
-                          <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
+                      <div className="flex justify-center">
+                        <div className="mx-5 mb-3 xl:w-96">
+                          <select className="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
                             border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                             focus:outline-none" aria-label="Default select example">
                               <option selected>Selecciona cantidad</option>
-                              {() => {
-                                for (let i = 0; i < stock; i++) {
-                                  (<option value="1">1</option>)
-                                }
-                              }}
+                              {
+                                unitsAvailable.map( opcion => (
+                                    <option key={opcion}>{opcion}</option>
+                                ))
+                              }
                           </select>
                         </div>
                       </div>
@@ -226,8 +199,12 @@ const Producto = () => {
                 </div>
 
                 <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+                    <img className="w-22 md:w-32 lg:w-60 m-5" 
+                                    onMouseOut={() => setHoverImage(false)}
+                                    onMouseOver={() => setHoverImage(true)}
+                                    style={{transition: '0.5s', transform: `${hoverImage ? 'scale(1.5,1.5)' : 'scale(1,1)'}`}}
+                                    src={imagen} />
                   <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-                    <img src={imagen} />
                   </div>
                   <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                     <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">

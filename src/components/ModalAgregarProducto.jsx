@@ -17,20 +17,7 @@ const ModalAgregarProducto = ({ isOpen, setIsOpen, producto }) => {
     const [cantidad, setCantidad] = useState('')
     const [talla, setTalla] = useState('')
 
-    const params = useParams()
-
-    const { mostrarAlerta, alerta, cesta, agregarProductoCesta } = useProductos();
-
-    useEffect(() => {
-        /*if(tarea?._id) {
-            setId(tarea._id)
-            setNombre(tarea.nombre)
-            setDescripcion(tarea.descripcion)
-            setFechaEntrega(tarea.fechaEntrega?.split('T')[0])
-            return
-        } */
-    }, []);
-    
+    const { mostrarAlerta, alerta, agregarProductoCesta } = useProductos();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -51,7 +38,6 @@ const ModalAgregarProducto = ({ isOpen, setIsOpen, producto }) => {
             talla: talla
         };
         await agregarProductoCesta(articulo)
-        //await submitTarea({ id, nombre, descripcion, producto: params.id})
         setId('')
         setCantidad('')
         setTalla('')

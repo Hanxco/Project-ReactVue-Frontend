@@ -61,7 +61,7 @@ const FormularioProducto = (producto) => {
     const { msg } = alerta
 
     return (
-        <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+        <form className="bg-white py-10 px-5 md:w-100 rounded-lg shadow"
             onSubmit={handleSubmit} >
                 {msg && <Alerta alerta={alerta} />}
 

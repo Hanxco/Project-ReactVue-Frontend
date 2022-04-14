@@ -123,21 +123,22 @@ const ProductosProvider = ({children}) => {
     const obtenerProducto = async id => {
         setCargando(true)
         try {
-            var project;
+            var product;
             for (var i=1; i<productos.length+1; i++) {
                 if (i == id) {
-                    project = productos[i-1];
+                    product = productos[i-1];
                 }
             }
-            setProducto(project)
+            setProducto(product)
             setAlerta({})
+            return product
         } catch (error) {
-            navigate('/productos')
             setAlerta({
                 msg: error.response.data.msg,
                 error: true
             })
             setTimeout(() => {
+                navigate('/')
                 setAlerta({})
             }, 3000);
         } finally {
@@ -339,8 +340,17 @@ const ProductosProvider = ({children}) => {
 
     const borrarProductoCesta = async articulo => {
         try {
-            const cestaAct = cesta.filter(productoState => (productoState._id !== articulo._id && cestaArr[i].talla == articulo.talla))
-            modificarStock(articulo, false)
+            const cestaAct = cesta.filter(productoState => productoState._id === articulo._id)
+            if (cestaAct.length > 1) {
+                for (var i = 0; i < cestaAct.length; i++) {
+                    if (cestaAct[i].talla == articulo.talla) {
+                        cestaAct.splice(i, 1)
+                        modificarStock(articulo, false)
+                    }
+                }
+            } else if (cestaAct.length == 1) {
+                cestaAct.splice(0, 1)
+            } 
             setCesta(cestaAct)
         } catch (error) {
             (error)

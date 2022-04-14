@@ -10,6 +10,7 @@ const PreviewProducto = ({producto, categories}) => {
     
     const [categoryName, setCategoryName] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [hoverImage, setHoverImage] = useState(false)
     
     useEffect( () => {
         var name = categories.get(Number(categoria))
@@ -33,7 +34,11 @@ const PreviewProducto = ({producto, categories}) => {
                                     <span className='text-sm text-gray-500 uppercase'>
                                         {''} {categoryName}
                                     </span>
-                                    <img className="w-22 md:w-32 lg:w-48 m-5" src={imagen} />
+                                    <img className="w-22 md:w-32 lg:w-48 m-5" 
+                                        onMouseOut={() => setHoverImage(false)}
+                                        onMouseOver={() => setHoverImage(true)}
+                                        style={{transition: '0.5s', transform: `${hoverImage ? 'scale(1.5,1.5)' : 'scale(1,1)'}`}}
+                                        src={imagen} />
                                     <p><b>Unidades en stock:</b> {stock}</p>
                                     <h4><b>Precio: </b>{precio} €</h4>
                                 </div>
