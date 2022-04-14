@@ -61,8 +61,8 @@ const RecordarPassword = () => {
                 </form>
 
                 <nav className="lg:flex lg:justify-between">
-                    <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/">Iniciar Sesión</Link>
-                    <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/registrarse">Regístrarse</Link>
+                    <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login">Iniciar Sesión</Link>
+                    <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login/registrarse">Regístrarse</Link>
                 </nav>
             </div>
         </Fragment>

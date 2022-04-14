@@ -8,7 +8,7 @@ const Buscador = () => {
 
   const [ productoBusqueda, setProductoBusqueda ] = useState([])
   const [ category, setCategory ] = useState({});
-  const [categories, useCategories] = useState(new Map())
+  const [ categories, useCategories ] = useState(new Map())
 
   const { getProductosByCategory, 
           buscarCategoriaById,

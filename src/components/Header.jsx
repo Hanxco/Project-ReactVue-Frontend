@@ -47,7 +47,7 @@ const Header = () => {
                             <div className="py-1" role="none">
                                 {
                                     categorias.map(categoria => (
-                                        <a key={`link-category-${categoria._id}`} href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
+                                        <a key={`link-category-${categoria._id}`} className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
                                             <Link className='font-bold uppercase hover:underline decoration-orange-500' to={`/categoria/${categoria._id}`} >{categoria.nombre}</Link>
                                         </a>
                                     ))

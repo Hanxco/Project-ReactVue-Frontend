@@ -7,6 +7,10 @@ const CestaCompra = () => {
 
   const handleRemove = async e => {
     const article = e;
+    console.log('article')
+    console.log(article)
+    console.log('cesta')
+    console.log(cesta)
     article.cantidad = e.cantidad - 1;
     if (article.cantidad == 0) {
       borrarProductoCesta(article)

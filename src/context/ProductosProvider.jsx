@@ -1,9 +1,6 @@
 import { useState, useEffect, createContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import io from 'socket.io-client'
-
-let socket;
 
 const ProductosContext = createContext();
 
@@ -64,10 +61,6 @@ const ProductosProvider = ({children}) => {
         }
         obtenerProductos()
     }, [auth])
-
-    useEffect(() => {
-        socket = io(import.meta.env.VITE_BACKEND_URL)
-    }, [])
 
     const mostrarAlerta = alerta => {
         setAlerta(alerta)
@@ -326,7 +319,7 @@ const ProductosProvider = ({children}) => {
             var objEle;
             var cestaArr = cesta;
             for (var i = 0 ; i < cestaArr.length; i++) {
-                if (cestaArr[i]._id == articulo._id) {
+                if (cestaArr[i]._id == articulo._id && cestaArr[i].talla == articulo.talla) {
                     cestaArr[i] = articulo
                 }
             }
@@ -346,7 +339,7 @@ const ProductosProvider = ({children}) => {
 
     const borrarProductoCesta = async articulo => {
         try {
-            const cestaAct = cesta.filter(productoState => productoState._id !== articulo._id )
+            const cestaAct = cesta.filter(productoState => (productoState._id !== articulo._id && cestaArr[i].talla == articulo.talla))
             modificarStock(articulo, false)
             setCesta(cestaAct)
         } catch (error) {
@@ -376,38 +369,6 @@ const ProductosProvider = ({children}) => {
         setBuscador(!buscador)
     }
 
-    // Socket io
-    const submitTareasProducto = (tarea) => {
-        const productoActualizado = {...producto}
-        productoActualizado.tareas = [...productoActualizado.tareas, tarea]
-        setProducto(productoActualizado)
-    }
-    const eliminarTareaProducto = tarea => {
-        (tarea)
-        const productoActualizado = {...producto}
-        productoActualizado.tareas = productoActualizado.tareas.filter(tareaState => tareaState._id !== tarea._id )
-        (productoActualizado)
-        setProducto(productoActualizado)
-    }
-
-    const actualizarTareaProducto = tarea => {
-        const productoActualizado = {...producto}
-        productoActualizado.tareas = productoActualizado.tareas.map( tareaState => tareaState._id === tarea._id ? tarea : tareaState )
-        setProducto(productoActualizado)
-    }
-    const cambiarEstadoTarea = tarea => {
-        const productoActualizado = {...producto}
-        productoActualizado.tareas = productoActualizado.tareas.map(tareaState => tareaState._id === tarea._id ? tarea : tareaState)
-        setProducto(productoActualizado)
-    }
-
-    const cerrarSesionProductos = () => {
-        setProductos([])
-        setProducto({})
-        setAlerta({})
-
-    }
-
     return (
         <ProductosContext.Provider
             value={{
@@ -426,12 +387,7 @@ const ProductosProvider = ({children}) => {
                 handleModalEliminarTarea,
                 buscador, 
                 handleBuscador,
-                submitTareasProducto,
-                eliminarTareaProducto,
-                actualizarTareaProducto,
                 setModalFormularioTarea,
-                cambiarEstadoTarea,
-                cerrarSesionProductos,
                 cesta,
                 setCesta,
                 tallas,

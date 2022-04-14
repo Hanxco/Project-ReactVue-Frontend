@@ -41,9 +41,9 @@ function App() {
               <Route path="/login" element={<AuthLayout />}>
                   <Route index element={<Login />} />
                   <Route path="registrarse" element={<Registrarse />} />
-                  <Route path="recordarpass/:token" element={<NuevoPassword />} />
+                  <Route path="resetpass/:token" element={<NuevoPassword />} />
                   <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
-                  <Route path="recordarpass" element={ <RecordarPassword/> } />
+                  <Route path="resetpass" element={ <RecordarPassword/> } />
               </Route>
           </Routes>
         </ProductosProvider>

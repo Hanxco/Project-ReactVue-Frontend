@@ -82,8 +82,8 @@ const Login = () => {
                     className="bg-orange-700 hover:cursor-pointer hover:bg-orange-800 transition-colors mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer"/>
             </form>
             <nav className="lg:flex lg:justify-between">
-                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/registrarse" >Registro de una nueva cuenta</Link>
-                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/recordarpass">Recordar contraseña</Link>
+                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login/registrarse" >Registro de una nueva cuenta</Link>
+                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login/resetpass">Recordar contraseña</Link>
             </nav>
         </div>
     </Fragment>

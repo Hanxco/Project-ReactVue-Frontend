@@ -13,7 +13,9 @@ const PreviewProducto = ({producto, categories}) => {
     
     useEffect( () => {
         var name = categories.get(Number(categoria))
-        setCategoryName(name.nombre);
+        if (name != null) {
+            setCategoryName(name.nombre);
+        }
         setLoading(false)
     })
 

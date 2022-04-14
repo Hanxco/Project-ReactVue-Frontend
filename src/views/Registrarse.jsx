@@ -38,15 +38,7 @@ const Registrarse = () => {
 
         setAlerta({})
 
-        // Crear el usuario en la API
         try {
-            /*const { data } = await clienteAxios.post(`/usuarios`, {nombre, email, password} )
-
-            setAlerta({
-                msg: data.msg,
-                error: false
-            })*/
-
             setNombre('')
             setEmail('')
             setPassword('')
@@ -124,8 +116,8 @@ const Registrarse = () => {
             </form>
 
             <nav className="lg:flex lg:justify-between">
-                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/">Iniciar Sesión</Link>
-                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/recordarpass">Recordar Password</Link>
+                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login">Iniciar Sesión</Link>
+                <Link className='block text-center my-5 text-slate-500 uppercase text-sm' to="/login/resetpass">Recordar Password</Link>
             </nav>
         </div>
     </Fragment>
