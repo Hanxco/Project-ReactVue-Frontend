@@ -40,12 +40,6 @@ const NuevoPassword = () => {
 
         try {
             const url = `/usuarios/olvide-password/${token}`
-
-            /**const { data } = await clienteAxios.post(url, { password })
-            setAlerta({
-                msg: data.msg,
-                error: false
-            })*/
             setPasswordModificado(true)
         } catch (error) {
             setAlerta({

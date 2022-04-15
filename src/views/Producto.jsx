@@ -11,21 +11,17 @@ const Producto = () => {
           alerta, 
           tallas } = useProductos()
  
-  const admin = useAdmin()
   const [hoverImage, setHoverImage] = useState(false)
   const [unitsAvailable, setUnitsAvailable] = useState([])
 
   useEffect( () => {
     obtenerProducto(params.id)
       .then(function(res) {
-        console.log(res)
         var arr = []
         for (let i=1; i <= res.stock; i++) {
           arr.push(i);
         }
         setUnitsAvailable(arr)
-        console.log('unitsAvailable')
-        console.log(unitsAvailable)
       })
   }, [])
 

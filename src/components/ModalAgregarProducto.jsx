@@ -1,10 +1,8 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProductos from '../hooks/useProductos'
 import Alerta from './Alerta'
-import { useParams } from 'react-router-dom'
 
-const CANTIDAD = ['1', '2', '3']
 const TALLA = ['XS', 'S', 'M', 'L', 'XL']
 
 const ModalAgregarProducto = ({ isOpen, setIsOpen, producto }) => {

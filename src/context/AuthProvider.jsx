@@ -16,7 +16,6 @@ const AuthProvider = ({children}) => {
     ])
 
     useEffect(() => {
-
         const autenticarUsuario = async () => {
             const token = localStorage.getItem('token')
             if (token != null) {
@@ -52,6 +51,14 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const isLogged = async () => {
+        var logged = false
+        const token = localStorage.getItem('token')
+        if (token != null && auth != null) {
+            logged = true
+        }
+        return logged
+    }
 
     return (
         <AuthContext.Provider
@@ -62,7 +69,8 @@ const AuthProvider = ({children}) => {
                 users,
                 setUsers,
                 cerrarSesionAuth,
-                resetPassword
+                resetPassword,
+                isLogged
             }}
         >
             {children}

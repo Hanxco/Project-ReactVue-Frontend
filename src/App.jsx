@@ -1,18 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import AdminLayout from './layouts/AdminLayout'
 import AuthLayout from './layouts/AuthLayout'
 import AppLayout from './layouts/AppLayout'
-import AdminLayout from './layouts/AdminLayout'
 
 import Login from './views/Login'
-import Registrarse from './views/Registrarse'
-import RecordarPassword from './views/RecordarPassword'
 import NuevoPassword from './views/NuevoPassword'
+import Registrarse from './views/Registrarse'
 import ConfirmarCuenta from './views/ConfirmarCuenta'
+import RecordarPassword from './views/RecordarPassword'
 import Productos from './views/Productos'
+import Producto from './views/Producto'
 import NuevoProducto from './views/NuevoProducto'
 import NuevaCategoria from './views/NuevaCategoria'
-import Producto from './views/Producto'
 import Buscador from './views/Buscador'
 
 import { AuthProvider } from './context/AuthProvider'

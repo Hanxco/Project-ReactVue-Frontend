@@ -14,12 +14,6 @@ const Header = () => {
 
     const admin = useAdmin()
 
-    const handleCerrarSesion = () => {
-        cerrarSesionAuth()
-        cerrarSesionProductos()
-        localStorage.removeItem('token')
-    }
-
     const handleAdmin = () => {
         setMenuAdmin(!menuAdmin);
     }
@@ -37,7 +31,7 @@ const Header = () => {
             <div className='flex flex-col md:flex-row items-center gap-4'>
                 <button className='font-bold uppercase hover:underline decoration-orange-500' type="button" onClick={handleBuscador}>Buscar Productos</button>
 
-                <div className="relative inline-block text-left">
+                <div className="relative inline-block text-left" >
                     <button className='font-bold uppercase hover:underline decoration-orange-500' 
                             type="button" onClick={handleCategorias} >Categorías</button>
                     { menuCategorias ? 
@@ -87,7 +81,6 @@ const Header = () => {
                         </div>
                     ) : null
                 }
-
                 {
                     auth == null ? (
                         <Link to="login">

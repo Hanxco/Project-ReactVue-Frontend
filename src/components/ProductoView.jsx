@@ -1,7 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import ModalAgregarProducto from './ModalAgregarProducto'
-import useProductos from "../hooks/useProductos"
 
 const PreviewProducto = ({producto, categories}) => {
 

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useProductos from '../hooks/useProductos';
 import ProductoView from "../components/ProductoView"
 

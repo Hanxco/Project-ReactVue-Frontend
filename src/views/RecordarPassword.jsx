@@ -33,8 +33,6 @@ const RecordarPassword = () => {
                 error: true
             })
         }
-
-
     }
 
     const { msg } = alerta

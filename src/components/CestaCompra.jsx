@@ -1,21 +1,53 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import useProductos from "../hooks/useProductos"
+import useAuth from '../hooks/useAuth'
 
 const CestaCompra = () => {
 
-  const { subtotal, cesta, editarProductoCesta, borrarProductoCesta, restarProductoSubtotal } = useProductos()
+  const { subtotal,
+          mostrarAlerta,
+          cesta, 
+          editarProductoCesta, 
+          borrarProductoCesta, 
+          restarProductoSubtotal,
+          finalizarPedido } = useProductos()
+
+  const { isLogged } = useAuth()
 
   const handleRemove = async e => {
     const article = e;
     article.cantidad = e.cantidad - 1;
-    console.log(article.cantidad)
     if (article.cantidad == 0) {
-      console.log('article.cantidad')
       borrarProductoCesta(article)
     } else {
       editarProductoCesta(article);
     }
     restarProductoSubtotal(article)
+  }
+
+  const handlePedido = async e => {
+    isLogged()
+      .then(function(res) {
+        if (cesta.length > 0 && res) {   
+          finalizarPedido()
+        } else if (cesta.length == 0) {
+          mostrarAlerta({
+            msg: 'Necesita agregar productos a su cesta',
+            error: 'true'
+          })
+        } else if (!res) {
+          mostrarAlerta({
+            msg: 'Inicie sesión para continuar su pedido',
+            error: 'true'
+          })
+        }
+      })
+      .catch(function() {
+        mostrarAlerta({
+          msg: 'Categoría Actualizada Correctamente',
+          error: 'true'
+        })
+      })
   }
 
   return (
@@ -70,9 +102,8 @@ const CestaCompra = () => {
             </div>
             <p className="mt-0.5 text-sm text-gray-500">Gastos de envío son calculados previo al pago.</p>
             <div className="mt-6">
-              <a href="#" 
-                className="flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-700">
-              Finalizar pedido</a>
+              <a className="flex items-center cursor-pointer justify-center rounded-md border border-transparent bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-700"
+                onClick={handlePedido}>Finalizar pedido</a>
             </div>
           </div>
         </div>

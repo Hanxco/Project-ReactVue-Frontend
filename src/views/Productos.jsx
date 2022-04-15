@@ -21,7 +21,6 @@ const Productos = () => {
       })
   }, [params])
 
-
   return (
     <Fragment>
       {msg && <Alerta alerta={alerta} />}

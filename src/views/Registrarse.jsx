@@ -35,7 +35,6 @@ const Registrarse = () => {
         setAlerta({})
 
         try {
-            
             setNombre('')
             setEmail('')
             setPassword('')

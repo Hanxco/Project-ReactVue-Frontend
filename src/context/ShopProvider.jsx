@@ -39,13 +39,6 @@ const ShopProvider = ({children}) => {
     // Cesta de la compra
     const [ cesta, setCesta ] = useState([])
     const [ subtotal, setSubtotal ] = useState(0)
-    /*const [ cesta, setCesta ] = useState([
-        { _id:1, productId: 1, nombre: "Superman", precio: "50", unidades: 3, imagen: '/images/4.jpg'},
-        { _id:2, productId: 2, nombre: "Superman", precio: "50", unidades: 3, imagen: '/images/4.jpg'},
-        { _id:3, productId: 2, nombre: "Superman", precio: "50", unidades: 3, imagen: '/images/4.jpg'},
-        { _id:4, productId: 2, nombre: "Superman", precio: "50", unidades: 3, imagen: '/images/4.jpg'},
-        { _id:5, productId: 3, nombre: "Superman", precio: "50", unidades: 3, imagen: '/images/4.jpg'}
-    ]);*/
 
     const navigate = useNavigate();
     const { auth } = useAuth()
@@ -179,16 +172,6 @@ const ShopProvider = ({children}) => {
     const modificarStock = async (articulo, operator) => {
         const producto = productos.filter(productoState => productoState._id == articulo._id )
         producto[0].stock = operator ? Number(producto[0].stock) - Number(articulo.cantidad) : Number(producto[0].stock) + 1
-    }
-
-    const handleModalTarea = () => {
-        setModalFormularioTarea(true)
-        setTarea({})
-    }
-
-    const handleModalEditarTarea = tarea => {
-        setModalFormularioTarea(true)
-        setTarea(tarea)
     }
 
     /*
@@ -332,7 +315,7 @@ const ShopProvider = ({children}) => {
 
     const borrarProductoCesta = async articulo => {
         try {
-            const cestaAct = cesta.filter(productoState => productoState._id === articulo._id)
+            let cestaAct = cesta.filter(productoState => productoState._id === articulo._id)
             if (cestaAct.length > 1) {
                 for (var i = 0; i < cestaAct.length; i++) {
                     if (cestaAct[i].talla == articulo.talla) {
@@ -340,8 +323,8 @@ const ShopProvider = ({children}) => {
                         modificarStock(articulo, false)
                     }
                 }
-            } else if (cestaAct.length == 1 && cesta.length == 1) {
-                cestaAct.splice(0, 1)
+            } else if (cestaAct.length == 1) {
+                cestaAct = cesta.filter(productoState => productoState._id !== articulo._id)
             } 
             setCesta(cestaAct)
         } catch (error) {
@@ -369,6 +352,13 @@ const ShopProvider = ({children}) => {
 
     const handleBuscador = () => {
         setBuscador(!buscador)
+    }
+
+    const finalizarPedido = () => {
+        mostrarAlerta({
+            msg: 'Se esta procesando su pedido',
+            error: false
+        })
     }
 
     return (
@@ -402,7 +392,8 @@ const ShopProvider = ({children}) => {
                 subtotal,
                 setSubtotal,
                 restarProductoSubtotal,
-                getProductosByCategory
+                getProductosByCategory,
+                finalizarPedido
             }}
         >{children}
         </ProductosContext.Provider>

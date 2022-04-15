@@ -9,8 +9,6 @@ const NuevoProducto = () => {
   const { productos, eliminarProducto } = useProductos();
   const [hoverImage, setHoverImage] = useState(false)
 
-  console.log(productoSel)
-  
   const handleClickDelete = (ele) => {
     if(confirm('¿Deseas eliminar este producto?')) {
       eliminarProducto(ele._id)
